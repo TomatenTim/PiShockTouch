@@ -7,25 +7,26 @@ from pythonosc import udp_client
 from pythonosc.dispatcher import Dispatcher
 from pythonosc.osc_server import BlockingOSCUDPServer
 import math
-import argparse
+from configparser import ConfigParser
+
 
 Pi_intensity = 15
 Pi_duration = 1
-Pi_OP = 2
-Pi_user = ""
-Pi_code = ""
-Pi_key = ""
+Pi_mode = 2
+Pi_username = ""
+Pi_sharecode = ""
+Pi_apikey = ""
 
 def BuildCommandJSON():
   
   Command = {
-    "username":Pi_user,
+    "username":Pi_username,
     "Name":"OSC Touch Vibrate",
-    "Code":Pi_code,
+    "Code":Pi_sharecode,
     "Intensity":Pi_intensity,
     "Duration":Pi_duration,
-    "Apikey":Pi_key,
-    "OP":Pi_OP,
+    "Apikey":Pi_apikey,
+    "OP":Pi_mode,
     }
 
 
@@ -35,12 +36,12 @@ def BuildCommandJSON():
 def TestBeep():
   
   Command = {
-    "username":Pi_user,
+    "username":Pi_username,
     "Name":"OSC Touch Vibrate",
-    "Code":Pi_code,
+    "Code":Pi_sharecode,
     "Intensity":Pi_intensity,
     "Duration":Pi_duration,
-    "Apikey":Pi_key,
+    "Apikey":Pi_apikey,
     "OP":2,
     }
   print("Printing API Request for Debug")
@@ -49,28 +50,44 @@ def TestBeep():
 
 
 
-def ParseArgs():
-  global Pi_user
-  global Pi_code
-  global Pi_key
+def ParseConfig():
+  global Pi_username
+  global Pi_sharecode
+  global Pi_apikey
 
-  parser = argparse.ArgumentParser(description='API info')
+  global Pi_intensity
+  global Pi_duration
+  global Pi_mode
   
-  parser.add_argument('P_user',type=str, help='PiShock Username')
-  parser.add_argument('P_code',type=str, help='PiShock Sharecode')
-  parser.add_argument('P_key',type=str, help='PiShock Key')
-  
-  args = parser.parse_args()
-  
+  config=ConfigParser()
+  config.read('pishock.cfg')
 
-  Pi_user = args.P_user
-  Pi_code = args.P_code
-  Pi_key = args.P_key
+  # read API config 
+  Pi_username=config['API']['USERNAME']
+  Pi_apikey=config['API']['APIKEY']
+  Pi_sharecode=config['API']['SHARECODE']
+
+  # read SETTINGS
+  Pi_intensity=config['SETTINGS']['INTENSITY']
+  Pi_duration=config['SETTINGS']['DURATION']
+  Pi_mode=config['SETTINGS']['MODE']
+
+  # translate mode to number
+  if(Pi_mode == "vibe"): 
+      Pi_mode = 1
+  elif(Pi_mode == "beep"): 
+      Pi_mode = 2
+  elif(Pi_mode == "zap"): 
+      Pi_mode = 0
+  else:
+      Pi_mode = 2
+
+
 
   print("User configuration found!")
-  print("Username:",Pi_user)
-  print("Sharecode:",Pi_code)
-  print("API Key: ",Pi_key)
+  print("Username:",Pi_username)
+  print("Sharecode:",Pi_sharecode)
+  print("API Key: ",Pi_apikey)
   print("*"*40)
   print("Sending test beep...")
   if(SendTest() == 200):
@@ -93,7 +110,7 @@ def SendRequest():
 
 def detection_handler(address, *args):
     global Pi_intensity
-    global Pi_OP
+    global Pi_mode
     global Pi_duration
     #print(f"{address}: {args}") #Default print all for debug
         
@@ -113,13 +130,13 @@ def detection_handler(address, *args):
             print("Normalized duration: ",Pi_duration)
     elif(address == "/avatar/parameters/PiShock_Mode"):
         if(args[0] == 1): 
-            Pi_OP = 1
+            Pi_mode = 1
             print("Vibe")
         elif(args[0] == 2): 
-            Pi_OP = 2
+            Pi_mode = 2
             print("Beep")
         elif(args[0] == 3): 
-            Pi_OP = 0
+            Pi_mode = 0
             print("Zap")
     elif(address == "/avatar/parameters/PiShock_Test"):
       SendRequest()
@@ -130,9 +147,9 @@ def default_handler(address, *args):
     print(f"DEFAULT {address}: {args}") #Default route when not detecting
 
 
-ParseArgs()
+ParseConfig()
 dispatcher = Dispatcher()
-dispatcher.map("/avatar/parameters/PiShock_*", detection_handler)
+dispatcher.map("/avatar/*", detection_handler)
 dispatcher.set_default_handler(default_handler)
 
 ip = "127.0.0.1"
