@@ -21,7 +21,7 @@ def BuildCommandJSON():
   
   Command = {
     "username":Pi_username,
-    "Name":"OSC Touch Vibrate",
+    "Name":"PiShockTouchVRC",
     "Code":Pi_sharecode,
     "Intensity":Pi_intensity,
     "Duration":Pi_duration,
@@ -37,7 +37,7 @@ def TestBeep():
   
   Command = {
     "username":Pi_username,
-    "Name":"OSC Touch Vibrate",
+    "Name":"PiShockTouchVRC",
     "Code":Pi_sharecode,
     "Intensity":Pi_intensity,
     "Duration":Pi_duration,
