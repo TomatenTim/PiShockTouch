@@ -132,14 +132,16 @@ def detection_handler(address, *args):
         if(args[0] == 1): 
             Pi_mode = 1
             print("Vibe")
-        elif(args[0] == 2): 
+        elif(args[0] == 2 or args[0] == 0): 
             Pi_mode = 2
             print("Beep")
         elif(args[0] == 3): 
             Pi_mode = 0
             print("Zap")
     elif(address == "/avatar/parameters/PiShock_Test"):
-      SendRequest()
+        if(args[0] > 0): 
+            print(f"Detection Touch {address}: {args}")
+            SendRequest()
 
 
      

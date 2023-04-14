@@ -38,7 +38,7 @@ PiShockTouch relies on a VRC contact receiver to determine if someone has poked 
 
 `PiShock_Duration` float
 
-`PiShock_Mode` int (1 - 3)
+`PiShock_Mode` int
 
 `PiShock_Test` bool (optional)
 
