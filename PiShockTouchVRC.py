@@ -118,11 +118,11 @@ def detection_handler(address, *args):
       if(args[0] > 0): 
         print(f"Detection Touch {address}: {args}")
         SendRequest()
-    elif(address == "/avatar/parameters/PiShock_intensity"):
+    elif(address == "/avatar/parameters/PiShock_Intensity"):
         if(args[0] > 0): 
             Pi_intensity = math.trunc(args[0] *100)
             print("Normalized intensity: ",Pi_intensity)
-    elif(address == "/avatar/parameters/PiShock_duration"):
+    elif(address == "/avatar/parameters/PiShock_Duration"):
         if(args[0] > 0): 
             Pi_duration = math.trunc(args[0]*15)
             if(Pi_duration < 1):

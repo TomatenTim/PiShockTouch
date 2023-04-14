@@ -34,11 +34,13 @@ PiShockTouch relies on a VRC contact receiver to determine if someone has poked 
 
 PiShock_CollarTouch bool
 
-PiShock_intensity float
+PiShock_Intensity float
 
-PiShock_duration float
+PiShock_Duration float
 
-PiShock_op int (0 - 2)
+PiShock_Mode int (0 - 2)
+
+PiShock_Test bool
 
 **TODO: add image**
 <!-- ![image](https://user-images.githubusercontent.com/102766533/197356880-967262cf-1eb1-44ad-8a70-abd889573499.png) -->
