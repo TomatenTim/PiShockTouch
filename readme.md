@@ -35,13 +35,13 @@ PiShockTouch relies on a VRC contact receiver to determine if someone has poked 
 ![image](https://user-images.githubusercontent.com/102766533/197355844-be871070-788c-4e2a-a2ca-9399c5b8851b.png)
 
 
-CollarTouch bool
+PiShock_CollarTouch bool
 
-P_int float
+PiShock_intensity float
 
-P_dur float
+PiShock_duration float
 
-P_op float
+PiShock_op int (0 - 2)
 
 ![image](https://user-images.githubusercontent.com/102766533/197356880-967262cf-1eb1-44ad-8a70-abd889573499.png)
 
@@ -83,13 +83,13 @@ Intensity is 1 to 1 with the normal PiShock settings from 1% to 100%
 
 Duration is a percentage of the max time(15 seconds). Example 50% is around 7 seconds
 
-Finally mode is a float to save parameter/menu space the threshold values are as follows.
+Finally mode is a int to save parameter/menu space the threshold values are as follows.
 
-0-10% Shock
+1 Vibrate
 
-11-20% Vibrate
+2 Beep
 
-21-100% Beep
+3 Shock
 
 ![image](https://user-images.githubusercontent.com/102766533/197363941-73887b2c-6843-4c2f-b2a7-3e7b5dca90f7.png)
 

@@ -1,4 +1,3 @@
-import json
 import requests
 from pythonosc import udp_client
 from pythonosc.udp_client import SimpleUDPClient
@@ -98,32 +97,31 @@ def detection_handler(address, *args):
     global Pi_duration
     #print(f"{address}: {args}") #Default print all for debug
         
-    if(address == "/avatar/parameters/CollarTouch"):
+    if(address == "/avatar/parameters/PiShock_CollarTouch"):
       if(args[0] > 0): 
         print(f"Detection Touch {address}: {args}")
         SendRequest()
-    elif(address == "/avatar/parameters/P_int"):
+    elif(address == "/avatar/parameters/PiShock_intensity"):
         if(args[0] > 0): 
             Pi_intensity = math.trunc(args[0] *100)
             print("Normalized intensity: ",Pi_intensity)
-    elif(address == "/avatar/parameters/P_dur"):
+    elif(address == "/avatar/parameters/PiShock_duration"):
         if(args[0] > 0): 
             Pi_duration = math.trunc(args[0]*15)
             if(Pi_duration < 1):
               Pi_duration = 1
             print("Normalized duration: ",Pi_duration)
-    elif(address == "/avatar/parameters/P_op"):
-        if(args[0] > 0): 
-            if(args[0] >= 0.2):
-              Pi_OP = 2
-              print("Beep")
-            elif(args[0]>= 0.1 and args[0] <0.2):
-              Pi_OP = 1
-              print("Vibe")
-            elif(args[0] < 0.1):
-              Pi_OP = 0
-              print("Zap")
-    elif(address == "/avatar/parameters/Test"):
+    elif(address == "/avatar/parameters/PiShock_Mode"):
+        if(args[0] == 1): 
+            Pi_OP = 1
+            print("Vibe")
+        elif(args[0] == 2): 
+            Pi_OP = 2
+            print("Beep")
+        elif(args[0] == 3): 
+            Pi_OP = 0
+            print("Zap")
+    elif(address == "/avatar/parameters/PiShock_Test"):
       SendRequest()
 
 
@@ -134,11 +132,11 @@ def default_handler(address, *args):
 
 ParseArgs()
 dispatcher = Dispatcher()
-dispatcher.map("/avatar/*", detection_handler)
+dispatcher.map("/avatar/parameters/PiShock_*", detection_handler)
 dispatcher.set_default_handler(default_handler)
 
 ip = "127.0.0.1"
-port = 9003
+port = 9001
 
 
 
