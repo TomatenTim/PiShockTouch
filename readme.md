@@ -1,6 +1,19 @@
 # PiShockTouch
 PiShockTouch is an open source application that allows the PiShockCollar to become interractive to touch in VR Chat.
 
+## Disclaimer
+I am not affiliated, associated, authorized, endorsed by, or in any way officially connected with PiShock
+
+This code was forked from [DesMakesStuff/PiShockTouch](https://github.com/DesMakesStuff/PiShockTouch) to customize it.
+
+Following things are modified:
+  - changed Avatar Parameters
+  - changed the way to set modes
+  - code refactoring
+  - added delay between requests
+
+
+
 # How it Works
 PiShockTouch relies on a VRC contact receiver to determine if someone has poked your collar. You can configure the poke to do anything the collar can do, adjusting for duration and intensity from the menu.
 
@@ -42,12 +55,11 @@ PiShockTouch relies on a VRC contact receiver to determine if someone has poked 
 
 `PiShock_Test` bool (optional)
 
-**TODO: add image**
-<!-- ![image](https://user-images.githubusercontent.com/102766533/197356880-967262cf-1eb1-44ad-8a70-abd889573499.png) -->
+![image](https://raw.githubusercontent.com/TomatenTim/PiShockTouch/56e9ef537f063814653656bd3764adc604e72b61/images/Parameters.png)
 
 
 9. Add a Submenu with Buttons / Toggles to your Avatar
-**TODO: add image**
+![image](https://raw.githubusercontent.com/TomatenTim/PiShockTouch/56e9ef537f063814653656bd3764adc604e72b61/images/Submenu.png)
 
 
 
@@ -56,7 +68,8 @@ PiShockTouch relies on a VRC contact receiver to determine if someone has poked 
 4. Open the `pishock.cfg` and add your PiShock Username behind `USERNAME=`
 3. Navigate to your PiShock account page and generate a new api key and add it behind `APIKEY=` in the config
 4. Generate a new sharecode specifically for PiShockTouch, add limits for safety if needed and add it behind `SHARECODE=` in the config
-5.  You can change the default INTENSITY (0 - 100), DURATION (in seconds) and MODE (`vibe`, `beep` or `zap`) in the config too. (these are applied when you start the script and can be changed within VRChat using your avatar menu)
+5.  You can change the default `INTENSITY` (0 - 100), `DURATION` (in seconds) and `MODE` (`vibe`, `beep` or `zap`) in the config too. (these are applied when you start the script and can be changed within VRChat using your avatar menu)
+6. You can also set the minimum delay in the config after `DELAY=`. The delay is the minimum time after a shock it waits before sending a new one.
 
 
 # Install requirements
