@@ -69,7 +69,7 @@ PiShockTouch relies on a VRC contact receiver to determine if someone has poked 
 3. Navigate to your PiShock account page and generate a new api key and add it behind `APIKEY=` in the config
 4. Generate a new sharecode specifically for PiShockTouch, add limits for safety if needed and add it behind `SHARECODE=` in the config
 5.  You can change the default `INTENSITY` (0 - 100), `DURATION` (in seconds) and `MODE` (`vibe`, `beep` or `zap`) in the config too. (these are applied when you start the script and can be changed within VRChat using your avatar menu)
-6. You can also set the minimum delay in the config after `DELAY=`. The delay is the minimum time after a shock it waits before sending a new one.
+6. You can also set the minimum delay in the config after `DELAY=`. The delay is the minimum time in seconds after a shock it waits before sending a new one.
 
 
 # Install requirements
