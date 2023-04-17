@@ -131,7 +131,7 @@ def SendRequest():
     current_time = time.monotonic()
     # check delay
     if (Pi_last_shock + Pi_delay > current_time):
-        print ('please wait', math.trunc(Pi_last_shock + Pi_delay - current_time) , 'secounds')
+        print ('please wait', math.trunc(Pi_last_shock + Pi_delay - current_time) , 'seconds')
         return 429 # return 429 "Too many requests"
     
     Pi_last_shock = current_time
